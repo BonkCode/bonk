@@ -1,5 +1,7 @@
 ft_printf_tests
 .vscode
 a.out
+pft
+*/*.o
 *.a
 *.opft/

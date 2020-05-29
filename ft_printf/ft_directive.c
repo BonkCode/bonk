@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:08:55 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/24 21:14:33 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/05/29 18:21:35 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	get_field_width(const char **format_string)
 		++(*format_string);
 		return (-2);
 	}
-	return (0);
+	return (-1);
 }
 
 static int	get_precision(const char **format_string)

@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:12:28 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/24 16:33:40 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/05/29 17:43:14 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*get_char_print(t_directive *directive, char variable)
 	size_t	string_size;
 	char	*return_string;
 
-	if (directive->conversion_character == '%')
-		return (ft_strdup("%"));
 	string_size = directive->field_width > 1 ? directive->field_width : 1;
 	return_string = malloc(string_size + 1 * sizeof(char));
 	return_string[string_size] = '\0';

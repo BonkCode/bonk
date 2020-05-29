@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:14:15 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/24 21:22:14 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/05/29 18:36:49 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ static char	*setup_return_string(t_directive *directive, int variable,
 	zeroes = zeroes_count >= 0 ? ft_calloc(zeroes_count + 1, sizeof(char)) :
 	ft_strdup("");
 	ft_memset(zeroes, '0', zeroes_count >= 0 ? zeroes_count : 0);
-	*number_to_print = ft_strjoin(zeroes, static_itoa(ft_abs(variable)));
+	if (directive->conversion_character == '%')
+		*number_to_print = ft_strjoin(zeroes, "%");
+	else
+		*number_to_print = ft_strjoin(zeroes, static_itoa(ft_abs(variable)));
 	*string_size = get_max(3, directive->field_width, directive->precision,
 												ft_strlen(*number_to_print));
 	return_string = malloc((*string_size + 1) * sizeof(char));
@@ -108,8 +111,7 @@ char		*get_int_print(t_directive *directive, int variable)
 	char	*return_string;
 	char	*ptr_to_free;
 
-	return_string = setup_return_string(directive, variable,
-	&string_size, &number_to_print);
+	return_string = setup_return_string(directive, variable, &string_size, &number_to_print);
 	justify_return_string(directive, &return_string, number_to_print,
 	string_size);
 	free(number_to_print);
@@ -117,7 +119,9 @@ char		*get_int_print(t_directive *directive, int variable)
 	{
 		if (directive->precision < directive->field_width && ft_strchr(return_string, ' '))
 			*(ft_strrchr(return_string, ' ')) = '-';
-		else 
+		else if (*return_string == '0')
+			*return_string = '-';
+		else
 		{
 			ptr_to_free = return_string;
 			return_string = ft_strjoin("-", ptr_to_free);
@@ -157,7 +161,7 @@ char		*get_int_print(t_directive *directive, int variable)
 			if (ft_strrchr(return_string, ' '))
 				*(ft_strrchr(return_string, ' ')) = '\0';
 			ptr_to_free = return_string;
-			ft_strjoin(ft_strchr(directive->flags, '+') ? "+" : " ", return_string);
+			return_string = ft_strjoin(ft_strchr(directive->flags, '+') ? "+" : " ", return_string);
 			free(ptr_to_free);
 			return (return_string);
 		}

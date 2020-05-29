@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:13:09 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/24 17:05:46 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/05/29 18:16:16 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		*get_string_print(t_directive *directive, char *variable)
 	char	*return_string;
 
 	if (variable == NULL)
-		variable = directive->precision < 6 && directive->precision >= 0 ? ft_strdup("") : ft_strdup("(null)");
+		variable = ft_strdup("(null)");
 	var_len = (size_t)get_min(2, ft_strlen(variable), directive->precision >= 0 ? (size_t)directive->precision : ft_strlen(variable));
 	string_size = get_max(2, directive->field_width, var_len);
 	return_string = malloc((string_size + 1) * sizeof(char));

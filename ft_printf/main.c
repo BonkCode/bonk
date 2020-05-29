@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 19:27:33 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/24 21:22:29 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/05/29 17:43:36 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char		*get_what_to_print(va_list argptr, t_directive *directive)
 	directive->conversion_character == 'i')
 		return (get_int_print(directive, va_arg(argptr, int)));
 	else if (directive->conversion_character == '%')
-		return (ft_strdup("%"));
+		return (get_int_print(directive, '%'));
 	else if (directive->conversion_character == 'p')
 		return (get_pointer_print(directive,
 		va_arg(argptr, unsigned long int)));

@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:06:38 by csnowbal          #+#    #+#             */
-/*   Updated: 2020/05/29 18:38:47 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/01 11:33:03 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 int	main(void)
 {
 	ft_printf("|");
-	ft_printf("%0+-8.3i", -8473);
+	ft_printf("%.6i", -3);
 	printf("|\n|");
-	printf("%0+-8.3i", -8473);
+	printf("%.6i", -3);
 	printf("|\n");
 	return (0);
 }

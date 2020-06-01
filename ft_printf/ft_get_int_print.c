@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:14:15 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/29 18:36:49 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/01 11:26:26 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char		*get_int_print(t_directive *directive, int variable)
 	{
 		if (directive->precision < directive->field_width && ft_strchr(return_string, ' '))
 			*(ft_strrchr(return_string, ' ')) = '-';
-		else if (*return_string == '0')
+		else if (*return_string == '0' && directive->precision < 0)
 			*return_string = '-';
 		else
 		{

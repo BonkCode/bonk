@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 19:27:33 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/29 17:43:36 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/01 16:34:01 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,33 @@ char		*get_what_to_print(va_list argptr, t_directive *directive)
 	else if (directive->conversion_character == 'u' ||
 	directive->conversion_character == 'x' ||
 	directive->conversion_character == 'X')
+	{
+		if (ft_strchr(directive->length_modifier, 'l'))
+		{
+			if (ft_strlen(directive->length_modifier) == 1)
+				return (get_unsigned_int_print(directive, va_arg(argptr,
+				unsigned long int)));
+			else
+				return (get_unsigned_int_print(directive, va_arg(argptr,
+				unsigned long long int)));
+		}
 		return (get_unsigned_int_print(directive, va_arg(argptr,
 		unsigned int)));
+	}
 	else if (directive->conversion_character == 'd' ||
 	directive->conversion_character == 'i')
+	{
+		if (ft_strchr(directive->length_modifier, 'l'))
+		{
+			if (ft_strlen(directive->length_modifier) == 1)
+				return (get_int_print(directive, va_arg(argptr,
+				long int)));
+			else
+				return (get_int_print(directive, va_arg(argptr,
+				long long int)));
+		}
 		return (get_int_print(directive, va_arg(argptr, int)));
+	}
 	else if (directive->conversion_character == '%')
 		return (get_int_print(directive, '%'));
 	else if (directive->conversion_character == 'p')

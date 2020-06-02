@@ -6,21 +6,21 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:14:15 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/01 11:57:53 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/02 18:34:32 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libftprintf.h"
 
-static long int	ft_abs(long int n)
+static long long int	ft_abs(long int n)
 {
 	return (n < 0 ? -n : n);
 }
 
-static long int	ten_pow(int size)
+static long long int	ten_pow(int size)
 {
-	long	res;
+	long long int	res;
 
 	res = 1;
 	if (size <= 0)
@@ -30,9 +30,9 @@ static long int	ten_pow(int size)
 	return (res);
 }
 
-static char	*static_itoa(long int n)
+static char	*static_itoa(long long int n)
 {
-	long int	n_copy;
+	long long int	n_copy;
 	char		*res;
 	int			size;
 
@@ -56,7 +56,7 @@ static char	*static_itoa(long int n)
 	return (res);
 }
 
-static char	*setup_return_string(t_directive *directive, int variable,
+static char	*setup_return_string(t_directive *directive, long long int variable,
 									size_t *string_size, char **number_to_print)
 {
 	int		zeroes_count;
@@ -104,7 +104,7 @@ static void	justify_return_string(t_directive *directive, char **return_string,
 	}
 }
 
-char		*get_int_print(t_directive *directive, int variable)
+char		*get_int_print(t_directive *directive, long long int variable)
 {
 	size_t	string_size;
 	char	*number_to_print;
@@ -119,7 +119,7 @@ char		*get_int_print(t_directive *directive, int variable)
 	{
 		if (directive->precision < directive->field_width && ft_strchr(return_string, ' '))
 			*(ft_strrchr(return_string, ' ')) = '-';
-		else if (*return_string == '0' && directive->precision < 0)
+		else if (*return_string == '0' && directive->precision < 0 )
 			*return_string = '-';
 		else
 		{
@@ -146,7 +146,7 @@ char		*get_int_print(t_directive *directive, int variable)
 		{
 			if (directive->precision < directive->field_width && ft_strchr(return_string, ' '))
 				*(ft_strrchr(return_string, ' ')) = ft_strchr(directive->flags, '+') ? '+' : ' ';
-			else if (*return_string == '0' && directive->precision <= directive->field_width)
+			else if (*return_string == '0' && directive->precision <= directive->field_width && (variable != 0 || ft_strrchr(return_string, '0') != return_string))
 				*return_string = ft_strchr(directive->flags, '+') ? '+' : ' ';
 			else
 			{
@@ -156,7 +156,7 @@ char		*get_int_print(t_directive *directive, int variable)
 			}
 			return (return_string);
 		}
-		if ((return_string[0] == '0' && directive->precision < 0) || return_string[0] == ' ')
+		if (((return_string[0] == '0' && directive->precision < 0) || return_string[0] == ' ') && (variable != 0 || ft_strrchr(return_string, '0') != return_string))
 			return_string[0] = ft_strchr(directive->flags, '+') ? '+' : ' ';
 		else
 		{

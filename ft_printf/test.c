@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:06:38 by csnowbal          #+#    #+#             */
-/*   Updated: 2020/06/01 11:51:24 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/02 18:36:35 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 int	main(void)
 {
+	int a = 5;
 	ft_printf("|");
-	ft_printf("%+05i", 5);
+	ft_printf("%08.5u", 34);
 	printf("|\n|");
-	printf("%+05i", 5);
+	printf("%08.5u", 34);
 	printf("|\n");
 	return (0);
 }

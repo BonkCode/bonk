@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:08:55 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/29 18:21:35 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/02 18:25:57 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*get_flag(const char **format_string)
 	{
 		if (**format_string == '-')
 		{
-			if (!ft_strchr(flags, '-' && !ft_strchr(flags, '0')))
+			if (!ft_strchr(flags, '-') && !ft_strchr(flags, '0'))
 				flags[++i] = **format_string;
 			else if (ft_strchr(flags, '0'))
 				*(ft_strchr(flags, '0')) = **format_string;
@@ -91,6 +91,27 @@ static int	get_precision(const char **format_string)
 	return (-1);
 }
 
+static char	*get_length_modifier(const char **format_string)
+{
+	int		i;
+	char	*length_modifier;
+	
+	i = -1;
+	length_modifier = ft_calloc(3, sizeof(char));
+	while (ft_strchr("hl", **format_string))
+	{
+		if (ft_strchr(length_modifier, **format_string))
+		{
+			length_modifier[++i] = **format_string;
+			++(*format_string);
+			break ;
+		}
+		length_modifier[++i] = **format_string;
+		++(*format_string);
+	}
+	return (length_modifier);
+}
+
 static char	get_conversion_character(const char **format_string)
 {
 	char	conversion_character;
@@ -112,8 +133,15 @@ t_directive	*get_directive(const char **format_string)
 	++(*format_string);
 	directive = (t_directive *)malloc(sizeof(t_directive));
 	directive->flags = get_flag(format_string);
+	if (**format_string == '\0')
+		return (NULL);
 	directive->field_width = get_field_width(format_string);
+	if (**format_string == '\0')
+		return (NULL);
 	directive->precision = get_precision(format_string);
+	if (**format_string == '\0')
+		return (NULL);
+	directive->length_modifier = get_length_modifier(format_string);
 	if (**format_string == '\0')
 		return (NULL);
 	directive->conversion_character = get_conversion_character(format_string);

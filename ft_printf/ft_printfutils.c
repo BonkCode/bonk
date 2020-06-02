@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:10:34 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/13 19:36:52 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/01 16:13:14 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int			get_min(int count, ...)
 	return (min);	
 }
 
-static long	ten_pow(int size)
+static unsigned long	long ten_pow(int size)
 {
-	long	res;
+	long long	res;
 
 	res = 1;
 	if (size <= 0)
@@ -62,11 +62,11 @@ static long	ten_pow(int size)
 	return (res);
 }
 
-char		*ft_uitoa(unsigned long int n)
+char		*ft_uitoa(unsigned long long int n)
 {
-	unsigned long int	n_copy;
-	char				*res;
-	int					size;
+	unsigned long long int	n_copy;
+	char					*res;
+	int						size;
 
 	n_copy = n;
 	size = 1;
@@ -84,11 +84,11 @@ char		*ft_uitoa(unsigned long int n)
 	return (res);
 }
 
-char		*get_hex(unsigned long int variable, char conversion_character)
+char		*get_hex(unsigned long long int variable, char conversion_character)
 {
-	char				*result;
-	int					size;
-	unsigned long int	variable_copy;
+	char					*result;
+	int						size;
+	unsigned long long int	variable_copy;
 
 	variable_copy = variable;
 	size = 0;

@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:13:41 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/24 17:06:37 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/02 18:40:42 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	justify_return_string(t_directive *directive, char **return_string,
 }
 
 char		*get_unsigned_int_print(t_directive *directive,
-									unsigned int variable)
+									unsigned long long int variable)
 {
 	int		zeroes_count;
 	size_t	string_size;
@@ -57,9 +57,29 @@ char		*get_unsigned_int_print(t_directive *directive,
 	ft_strlen(number_to_print));
 	return_string = malloc((string_size + 1) * sizeof(char));
 	return_string[string_size] = '\0';
-	ft_memset(return_string, ft_strchr(directive->flags, '0') || directive->precision >
+	ft_memset(return_string, (ft_strchr(directive->flags, '0') && directive->precision < 0) || directive->precision >
 	(int)ft_strlen(number_to_print) ? '0' : ' ', string_size);
 	justify_return_string(directive, &return_string, number_to_print,
 	string_size);
+	if (variable != 0 && ft_strchr("xX", directive->conversion_character) && ft_strchr(directive->flags, '#') && !ft_strchr(directive->flags, '-'))
+	{
+		if (directive->precision < directive->field_width && ft_strchr(return_string, ' ') && *(ft_strrchr(return_string, ' ') - 1) == ' ')
+			ft_memcpy(ft_strrchr(return_string, ' ') - 1, directive->conversion_character == 'x' ? "0x" : "0X", 2);
+		else if (*return_string == '0' && *(return_string + 1) == '0' && directive->precision < 0)
+			ft_memcpy(return_string, directive->conversion_character == 'x' ? "0x" : "0X", 2);
+		else
+		{
+			return_string = ft_strjoin(directive->conversion_character == 'x' ? "0x" : "0X", return_string);
+		}
+		return (return_string);
+	}
+	if (variable != 0 && ft_strchr("xX", directive->conversion_character) && ft_strchr(directive->flags, '#') && ((return_string[0] == '0' && return_string[1] == '0' && directive->precision < 0) || (return_string[0] == ' ' && return_string[1] == ' ')))
+		ft_memcpy(return_string, directive->conversion_character == 'x' ? "0x" : "0X", 2);
+	else if (variable != 0 && ft_strchr("xX", directive->conversion_character) && ft_strchr(directive->flags, '#'))
+	{
+		if (ft_strrchr(return_string, ' ') && *(ft_strrchr(return_string, ' ') - 1) == ' ')
+			*(ft_strrchr(return_string, ' ') - 1) = '\0';
+		return_string = ft_strjoin(directive->conversion_character == 'x' ? "0x" : "0X", return_string);
+	}
 	return (return_string);
 }

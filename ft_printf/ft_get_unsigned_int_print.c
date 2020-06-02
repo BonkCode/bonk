@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:13:41 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/02 18:40:42 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/02 19:36:43 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ char		*get_unsigned_int_print(t_directive *directive,
 	zeroes = zeroes_count >= 0 ? ft_calloc(zeroes_count + 1, sizeof(char)) :
 	ft_strdup("");
 	ft_memset(zeroes, '0', zeroes_count >= 0 ? zeroes_count : 0);
-	number_to_print = ft_strjoin(zeroes, directive->conversion_character ==
-	'u' ? ft_uitoa(variable) :
+	if (directive->precision == 0 && variable == 0)
+		number_to_print = ft_strjoin(zeroes, "");
+	else
+		number_to_print = ft_strjoin(zeroes, directive->conversion_character ==
+		'u' ? ft_uitoa(variable) :
 	get_hex(variable, directive->conversion_character));
 	string_size = get_max(3, directive->field_width, directive->precision,
 	ft_strlen(number_to_print));
@@ -63,23 +66,54 @@ char		*get_unsigned_int_print(t_directive *directive,
 	string_size);
 	if (variable != 0 && ft_strchr("xX", directive->conversion_character) && ft_strchr(directive->flags, '#') && !ft_strchr(directive->flags, '-'))
 	{
-		if (directive->precision < directive->field_width && ft_strchr(return_string, ' ') && *(ft_strrchr(return_string, ' ') - 1) == ' ')
-			ft_memcpy(ft_strrchr(return_string, ' ') - 1, directive->conversion_character == 'x' ? "0x" : "0X", 2);
-		else if (*return_string == '0' && *(return_string + 1) == '0' && directive->precision < 0)
-			ft_memcpy(return_string, directive->conversion_character == 'x' ? "0x" : "0X", 2);
+		if (directive->precision < directive->field_width && ft_strchr(return_string, ' '))
+		{
+			if (ft_strrchr(return_string, ' ') == return_string)
+			{
+				*return_string = directive->conversion_character;
+				return_string = ft_strjoin("0", return_string);
+			}
+			else
+				ft_memcpy(ft_strrchr(return_string, ' ') - 1, directive->conversion_character == 'x' ? "0x" : "0X", 2);
+		}
+		else if (*return_string == '0' && directive->precision < 0)
+		{
+			if (*(return_string + 1) == '0')
+				ft_memcpy(return_string, directive->conversion_character == 'x' ? "0x" : "0X", 2);
+			else
+			{
+				*return_string = directive->conversion_character;
+				return_string = ft_strjoin("0", return_string);
+			}
+		}
 		else
 		{
 			return_string = ft_strjoin(directive->conversion_character == 'x' ? "0x" : "0X", return_string);
 		}
 		return (return_string);
 	}
-	if (variable != 0 && ft_strchr("xX", directive->conversion_character) && ft_strchr(directive->flags, '#') && ((return_string[0] == '0' && return_string[1] == '0' && directive->precision < 0) || (return_string[0] == ' ' && return_string[1] == ' ')))
-		ft_memcpy(return_string, directive->conversion_character == 'x' ? "0x" : "0X", 2);
-	else if (variable != 0 && ft_strchr("xX", directive->conversion_character) && ft_strchr(directive->flags, '#'))
+	if (variable != 0 && ft_strchr("xX", directive->conversion_character) && ft_strchr(directive->flags, '#'))
 	{
-		if (ft_strrchr(return_string, ' ') && *(ft_strrchr(return_string, ' ') - 1) == ' ')
-			*(ft_strrchr(return_string, ' ') - 1) = '\0';
-		return_string = ft_strjoin(directive->conversion_character == 'x' ? "0x" : "0X", return_string);
+		if ((return_string[0] == '0' && return_string[1] == '0' && directive->precision < 0) || (return_string[0] == ' ' && return_string[1] == ' '))
+			ft_memcpy(return_string, directive->conversion_character == 'x' ? "0x" : "0X", 2);
+		else if ((return_string[0] == '0' && directive->precision < 0) || return_string[0] == ' ')
+		{
+			return_string[0] = directive->conversion_character;
+			return_string = ft_strjoin("0", return_string);
+		}
+		else
+		{
+			if (ft_strrchr(return_string, ' '))
+			{
+				if (*(ft_strrchr(return_string, ' ') - 1) == ' ')
+					*(ft_strrchr(return_string, ' ') - 1) = '\0';
+				else
+				{
+					*(ft_strrchr(return_string, ' ')) = '\0';
+				}
+			}
+			return_string = ft_strjoin(directive->conversion_character == 'x' ? "0x" : "0X", return_string);
+		}
 	}
 	return (return_string);
 }

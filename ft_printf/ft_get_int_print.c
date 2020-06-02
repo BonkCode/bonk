@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:14:15 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/02 18:34:32 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/02 19:19:08 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static char	*setup_return_string(t_directive *directive, long long int variable,
 	if (directive->conversion_character == '%')
 		*number_to_print = ft_strjoin(zeroes, "%");
 	else
-		*number_to_print = ft_strjoin(zeroes, static_itoa(ft_abs(variable)));
+		*number_to_print = ft_strjoin(zeroes, variable == 0 && directive->precision == 0 ? "" : static_itoa(ft_abs(variable)));
 	*string_size = get_max(3, directive->field_width, directive->precision,
 												ft_strlen(*number_to_print));
 	return_string = malloc((*string_size + 1) * sizeof(char));

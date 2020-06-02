@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 03:21:08 by rtrant            #+#    #+#             */
-/*   Updated: 2020/05/24 16:33:27 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/01 16:12:21 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct	s_directive
 	int		field_width;
 	int		precision;
 	char	conversion_character;
+	char	*length_modifier;
 	char	*flags;
 }				t_directive;
 
@@ -29,13 +30,13 @@ int				get_max(int count, ...);
 int				get_min(int count, ...);
 t_directive		*get_directive(const char **format_string);
 char			*get_char_print(t_directive *directive, char variable);
-char			*get_int_print(t_directive *directive, int variable);
+char			*get_int_print(t_directive *directive, long long int variable);
 char			*get_pointer_print(t_directive *directive,
 								unsigned long int variable);
 char			*get_string_print(t_directive *directive, char *variable);
 char			*get_unsigned_int_print(t_directive *directive,
-								unsigned int variable);
-char			*ft_uitoa(unsigned long int n);
-char			*get_hex(unsigned long int variable, char conversion_character);
+								unsigned long long int variable);
+char			*ft_uitoa(unsigned long long int n);
+char			*get_hex(unsigned long long int variable, char conversion_character);
 
 #endif

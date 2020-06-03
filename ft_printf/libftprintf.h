@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 03:21:08 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/01 16:12:21 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/03 05:41:46 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char			*get_pointer_print(t_directive *directive,
 char			*get_string_print(t_directive *directive, char *variable);
 char			*get_unsigned_int_print(t_directive *directive,
 								unsigned long long int variable);
+char			*get_float_print(t_directive *directive, float variable);
 char			*ft_uitoa(unsigned long long int n);
 char			*get_hex(unsigned long long int variable, char conversion_character);
 

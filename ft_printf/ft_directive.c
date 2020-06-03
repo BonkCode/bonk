@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:08:55 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/02 18:25:57 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/02 20:35:11 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static char	get_conversion_character(const char **format_string)
 {
 	char	conversion_character;
 
-	if (ft_strchr("cspdiuxX%", **format_string) && **format_string != '\0')
+	if (ft_strchr("cspdiuxXf%", **format_string) && **format_string != '\0')
 	{
 		conversion_character = **format_string;
 		++(*format_string);

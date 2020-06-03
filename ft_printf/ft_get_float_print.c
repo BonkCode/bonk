@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_int_print.c                                 :+:      :+:    :+:   */
+/*   ft_get_float_print.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:14:15 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/03 05:29:35 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/03 05:54:00 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,38 @@ static char	*static_itoa(long long int n)
 	return (res);
 }
 
-static char	*setup_return_string(t_directive *directive, long long int variable,
+static char	*setup_return_string(t_directive *directive, float variable,
 									size_t *string_size, char **number_to_print)
 {
 	int		zeroes_count;
 	char	*zeroes;
 	char	*return_string;
+	long long int	int_part;
+	long long int	decimal_part;
+	char			*decimal_part_string;
 
-	zeroes_count = directive->precision - ft_strlen(static_itoa(ft_abs(variable)));
+	int_part = (long long int)variable;
+	variable -= int_part;
+	decimal_part = (long long int)(1000000000000000000 * variable);
+	while (decimal_part % 10 == 0)
+		decimal_part /= 10;
+	decimal_part_string = static_itoa(decimal_part);
+	decimal_part_string[directive->precision >= 0 ? directive->precision : 6] = '\0';
+	*number_to_print = ft_strjoin(static_itoa(int_part), ".");
+	*number_to_print = ft_strjoin(*number_to_print, decimal_part_string);
+	zeroes_count = directive->precision - ft_strlen(decimal_part_string);
 	zeroes = zeroes_count >= 0 ? ft_calloc(zeroes_count + 1, sizeof(char)) :
 	ft_strdup("");
 	ft_memset(zeroes, '0', zeroes_count >= 0 ? zeroes_count : 0);
 	if (directive->conversion_character == '%')
 		*number_to_print = ft_strjoin(zeroes, "%");
 	else
-		*number_to_print = ft_strjoin(zeroes, variable == 0 && directive->precision == 0 ? "" : static_itoa(ft_abs(variable)));
+		*number_to_print = ft_strjoin(*number_to_print, zeroes);
 	*string_size = get_max(3, directive->field_width, directive->precision,
 												ft_strlen(*number_to_print));
 	return_string = malloc((*string_size + 1) * sizeof(char));
 	return_string[*string_size] = '\0';
-	ft_memset(return_string, (ft_strchr(directive->flags, '0') && directive->precision < 0) ||
-	directive->precision > (int)ft_strlen(*number_to_print) ? '0' :
+	ft_memset(return_string, (ft_strchr(directive->flags, '0')) ? '0' :
 													' ', *string_size);
 	free(zeroes);
 	return (return_string);
@@ -104,7 +115,7 @@ static void	justify_return_string(t_directive *directive, char **return_string,
 	}
 }
 
-char		*get_int_print(t_directive *directive, long long int variable)
+char		*get_float_print(t_directive *directive, float variable)
 {
 	size_t	string_size;
 	char	*number_to_print;

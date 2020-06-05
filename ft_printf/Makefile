@@ -6,7 +6,7 @@
 #    By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/10 19:04:19 by rtrant            #+#    #+#              #
-#    Updated: 2020/05/24 19:03:25 by rtrant           ###   ########.fr        #
+#    Updated: 2020/06/02 20:28:55 by rtrant           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = libftprintf.a
 LIBFT_PATH = ./libft/
 LIBFT_NAME = libft.a
 LIBFT_HEADER = -I libft
-SRCS = ft_directive.c ft_get_char_print.c ft_get_int_print.c ft_get_pointer_print.c ft_get_string_print.c ft_get_unsigned_int_print.c ft_printfutils.c main.c
-OBJS = ft_directive.o ft_get_char_print.o ft_get_int_print.o ft_get_pointer_print.o ft_get_string_print.o ft_get_unsigned_int_print.o ft_printfutils.o main.o
+SRCS = ft_directive.c ft_get_char_print.c ft_get_int_print.c ft_get_pointer_print.c ft_get_string_print.c ft_get_unsigned_int_print.c ft_printfutils.c ft_get_float_print.c main.c
+OBJS = ft_directive.o ft_get_char_print.o ft_get_int_print.o ft_get_pointer_print.o ft_get_string_print.o ft_get_unsigned_int_print.o ft_printfutils.o ft_get_float_print.o main.o
 LIBFT_OBJS =  ft_atoi.o ft_bzero.o ft_isalpha.o ft_isascii.o \
         ft_isdigit.o ft_isprint.o ft_memcmp.o ft_memcpy.o ft_memmove.o \
         ft_memset.o ft_strlcpy.o ft_strlen.o ft_tolower.o ft_toupper.o \

@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 19:27:33 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/02 20:30:06 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/03 08:31:39 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		*get_what_to_print(va_list argptr, t_directive *directive)
 		}
 		return (get_int_print(directive, va_arg(argptr, int)));
 	}
-	else if (directive->conversion_character == 'f')
+	else if (ft_strchr("feg", directive->conversion_character))
 		return (get_float_print(directive, va_arg(argptr, double)));
 	else if (directive->conversion_character == '%')
 		return (get_int_print(directive, '%'));

@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:12:28 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/01 16:24:21 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/03 07:47:26 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ char	*get_char_print(t_directive *directive, char variable)
 	return_string = malloc(string_size + 1 * sizeof(char));
 	return_string[string_size] = '\0';
 	ft_memset(return_string, ' ', string_size);
-	return_string[ft_strchr(directive->flags, '-') ? 0 : string_size - 1] = variable;
+	return_string[ft_strchr(directive->flags, '-') ? 0 : string_size - 1] = variable == 0 ? '\x00' : variable;
+	if (variable == 0)
+	{
+		while (*return_string != '\0')
+		{
+			ft_putchar_fd(*return_string, 1);
+			++return_string;
+		}
+		ft_putchar_fd(*return_string, 1);
+		++return_string;
+		while (*return_string != '\0')
+		{
+			ft_putchar_fd(*return_string, 1);
+			++return_string;
+		}
+		return (ft_strdup(""));
+	}
 	return (return_string);
 }

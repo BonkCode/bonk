@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 19:27:33 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/03 08:31:39 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/05 16:18:30 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,12 @@ static int	print_formatted(const char **format_string, va_list argptr)
 	else
 	{
 		if (directive->field_width == -2)
+		{
 			directive->field_width = va_arg(argptr, int);
+			if (directive->field_width < 0)
+				directive->flags = ft_strjoin(directive->flags, "-");
+			directive->field_width = ft_abs(directive->field_width);
+		}
 		if (directive->precision == -2)
 			directive->precision = va_arg(argptr, int);
 		what_to_print = get_what_to_print(argptr, directive);

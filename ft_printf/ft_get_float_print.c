@@ -6,30 +6,13 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:14:15 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/03 08:44:24 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/05 16:13:55 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libft.h"
 #include "libftprintf.h"
-
-static long long int	ft_abs(long int n)
-{
-	return (n < 0 ? -n : n);
-}
-
-static long long int	ten_pow(int size)
-{
-	long long int	res;
-
-	res = 1;
-	if (size <= 0)
-		return (1);
-	while (size-- > 0)
-		res *= 10;
-	return (res);
-}
 
 static char	*static_itoa(long long int n, int field_size)
 {

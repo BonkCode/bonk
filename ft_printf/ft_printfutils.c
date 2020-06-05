@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 05:10:34 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/01 16:13:14 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/05 16:15:58 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int			get_min(int count, ...)
 	return (min);	
 }
 
-static unsigned long	long ten_pow(int size)
+long long int	ten_pow(int size)
 {
-	long long	res;
+	long long int	res;
 
 	res = 1;
 	if (size <= 0)
@@ -110,4 +110,9 @@ char		*get_hex(unsigned long long int variable, char conversion_character)
 	}
 	result[0] = result[0] == '\0' ? '0' : result[0];
 	return (result);
+}
+
+long long int	ft_abs(long int n)
+{
+	return (n < 0 ? -n : n);
 }

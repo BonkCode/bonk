@@ -6,7 +6,7 @@
 /*   By: rtrant <rtrant@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 03:21:08 by rtrant            #+#    #+#             */
-/*   Updated: 2020/06/03 06:46:34 by rtrant           ###   ########.fr       */
+/*   Updated: 2020/06/05 16:14:28 by rtrant           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct	s_directive
 int				ft_printf(const char *format_string, ...);
 int				get_max(int count, ...);
 int				get_min(int count, ...);
+long long int	ft_abs(long int n);
+long long int	ten_pow(int size);
 t_directive		*get_directive(const char **format_string);
 char			*get_char_print(t_directive *directive, char variable);
 char			*get_int_print(t_directive *directive, long long int variable);

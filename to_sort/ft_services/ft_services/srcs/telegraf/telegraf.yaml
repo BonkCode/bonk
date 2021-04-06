@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: telegraf-pv-storage
+  labels:
+    type: local
+spec:
+  storageClassName: telegraf-pv-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/run/docker.sock"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: telegraf-pv-storage
+  labels:
+    app: telegraf
+spec:
+  storageClassName: telegraf-pv-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: telegraf-deploy
+spec:
+    selector:
+        matchLabels:
+            app: telegraf
+    template:
+        metadata:
+            labels:
+                app: telegraf
+        spec:
+            containers:
+                - image: telegraf
+                  name: telegraf
+                  imagePullPolicy: Never
+                  volumeMounts:
+                      - name: telegraf-pv-storage
+                        mountPath: "/var/run/docker.sock"
+            volumes:
+                - name: telegraf-pv-storage
+                  persistentVolumeClaim:
+                    claimName: telegraf-pv-storage

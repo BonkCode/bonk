@@ -1,0 +1,115 @@
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: white;
+  font-family : Avenir;
+  font-size : 26px;
+  padding : 10px 100px;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 36px;
+  text-decoration : none;
+  border-radius : 5px 25px;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+h1
+{
+    color : darkblue;
+    font-weight : bold;
+    font-size : 100px;
+    font-family : Optima;
+    margin-bottom : -50px;
+}
+
+h2
+{
+    color : darkblue;
+    font-weight : normal;
+    font-size : 50px;
+}
+
+.floatingimg
+{
+    float : left;
+    max-width : 9%;
+}
+
+body
+{
+    color : grey;
+    font-weight : normal;
+    font-size : 32px;
+    font-family : Avenir;
+    text-align : center;
+}
+
+.latin
+{
+    color : darkblue;
+    font-size : 20px;
+    font-family : Optima;
+    text-align : justify;
+    border: 50px solid white;
+}
+
+ul
+{
+    text-align : left;
+}
+
+/*****************************************/
+/**** IMAGES (SERVICES' LOGO) GALLERY ****/
+/*****************************************/
+
+div.gallery {
+}
+
+div.gallery:hover {
+}
+
+div.gallery img {
+  display: block;
+  width: 65%;
+  height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 25%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}

@@ -1,0 +1,18 @@
+# In another window 'docker exec -it...'
+influx
+CREATE USER admin WITH PASSWORD 'admin' WITH ALL PRIVILEGES
+# Reconnect to influx using new user
+influx -username admin -password admin
+SHOW USERS
+CREATE DATABASE weather
+CREATE RETENTION POLICY one_week ON weather DURATION 168h REPLICATION 1 DEFAULT
+SHOW DATABASES
+
+# Try executing the InfluxQL query with correct credentials
+curl -G -u admin:admin http://localhost:8086/query --data-urlencode "q=SHOW DATABASES"
+
+# Check if Telegraf sends metrics to InfluxDB
+# Change target databse for metrics in /etc/telegraf.conf
+CREATE DATABASE telegraf
+USE telegraf
+SELECT * FROM cpu
